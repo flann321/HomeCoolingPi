@@ -17,5 +17,7 @@ Block Diagram
 
 Sample Chart
 ------------
+
+Image below; [interactive graph](https://plot.ly/~flann321/9/) also available. 
 ![Alt text](/chart.png)
 
