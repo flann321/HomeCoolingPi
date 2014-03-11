@@ -21,3 +21,9 @@ Sample Chart
 Image below; [interactive graph](https://plot.ly/~flann321/9/) also available. 
 ![Alt text](/chart.png)
 
+Citations
+---------
+Streaming Data with Plotly
+(http://makezine.com/2014/01/21/streaming-data-with-plotly/)
+Big Data Under The Surface At Mobile World Congress
+(http://www.forbes.com/sites/tjmccue/2014/02/24/big-data-under-the-surface-at-mobile-world-congress/)
