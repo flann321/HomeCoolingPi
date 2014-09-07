@@ -5,7 +5,7 @@ import sys
 
 
 # Weather Underground key
-wu_key = "api_key"
+wu_key = "key"
 wu_state = "state"
 wu_city = "city"
 wu_retry = 5
@@ -39,6 +39,7 @@ def get_WUTemp(key, state, city, retries=5):
 			print (e)
 			temp_f = None
 			sleep(0.1)
+			raise
 
 	if (f != None):
 		f.close()

@@ -10,6 +10,12 @@ wu_state = "state"
 wu_city = "city"
 wu_retry = 5
 
+# Forecast IO key
+global forecast_key, forecast_lat, forecast_long
+forecast_key = "forecast_key"
+forecast_lat = "lat"
+forecast_long = "long"
+
 # Arduino Temp
 global arduino_ip_addr, arduino_port, arduino_tmo, arduino_retry
 arduino_ip_addr = "192.168.xxx.xxx"
