@@ -107,7 +107,7 @@ class RPi_Temp(threading.Thread):
 
 			if self.logger:
 				self.logger.error((strftime("[%H:%M:%S]: EXCEPTION ", localtime()) + traceback.format_exc()), exc_info=True)
-			sys.exit()
+			#sys.exit()
 		
 
 	def run(self):
@@ -153,19 +153,19 @@ class RPi_Temp(threading.Thread):
 
 						MySQLdatabase.Close(db)
 
-						self.lock.release()
-						if self.logger:
-							self.logger.info (strftime("[%H:%M:%S]: ", localtime()) + "RPi_Temp lock released")
+						self.sendMessage(curTime, 'RPi_Temp', 'measure:temp', curTemp)
+
 
 					except IOError, e:
 						print (strftime("[%H:%M:%S]: EXCEPTION ", localtime()) + traceback.format_exc())
 
 						if self.logger:
 							self.logger.error((strftime("[%H:%M:%S]: EXCEPTION ", localtime()) + traceback.format_exc()), exc_info=True)
-						sys.exit()
+						#sys.exit()
 					
-
-					self.sendMessage(curTime, 'RPi_Temp', 'measure:temp', curTemp)
+					self.lock.release()
+					if self.logger:
+						self.logger.info (strftime("[%H:%M:%S]: ", localtime()) + "RPi_Temp lock released")
 
 
 				# Check incoming message queue
@@ -187,7 +187,7 @@ class RPi_Temp(threading.Thread):
 
 				if self.logger:
 					self.logger.error((strftime("[%H:%M:%S]: EXCEPTION ", localtime()) + traceback.format_exc()), exc_info=True)
-				sys.exit()
+				#sys.exit()
 
 
 	def stop(self, timeout=None):

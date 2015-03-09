@@ -185,16 +185,16 @@ class NestSensor(threading.Thread):
 
 						MySQLdatabase.Close(db)
 
+						self.sendMessage(curTime, 'NestSensor', 'measure:temp', curNestTemp)
+						self.sendMessage(curTime, 'NestSensor', 'measure:humidity', curNestHumidity)
+
 					except IOError, e:
 						print (strftime("[%H:%M:%S]: EXCEPTION ", localtime()) + traceback.format_exc())
 
 						if self.logger:
 							self.logger.error((strftime("[%H:%M:%S]: EXCEPTION ", localtime()) + traceback.format_exc()), exc_info=True)
-						sys.exit()
+						#sys.exit()
 					
-
-					self.sendMessage(curTime, 'NestSensor', 'measure:temp', curNestTemp)
-					self.sendMessage(curTime, 'NestSensor', 'measure:humidity', curNestHumidity)
 
 					self.lock.release()
 					if self.logger:
@@ -223,7 +223,7 @@ class NestSensor(threading.Thread):
 
 				if self.logger:
 					self.logger.error((strftime("[%H:%M:%S]: EXCEPTION ", localtime()) + traceback.format_exc()), exc_info=True)
-				sys.exit()
+				#sys.exit()
 
 
 	def read_data(self, n, retries=1):

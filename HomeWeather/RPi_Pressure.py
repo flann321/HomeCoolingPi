@@ -116,7 +116,7 @@ class RPi_Pressure(threading.Thread):
 			if self.logger:
 				self.logger.error (strftime("[%H:%M:%S]: EXCEPTION ", localtime()) + str(sys.exc_info()[0]))
 				self.logger.error('Check that script ran from root user')
-			sys.exit()
+			#sys.exit()
 		
 
 		if (pressure > self.dataLow and pressure < self.dataHigh):
@@ -155,7 +155,7 @@ class RPi_Pressure(threading.Thread):
 							if self.logger:
 								self.logger.error (strftime("[%H:%M:%S]: EXCEPTION ", localtime()) + str(sys.exc_info()[0]))
 								self.logger.error('Check that script ran from root user')
-							sys.exit()
+							#sys.exit()
 
 						#print (strftime("[%H:%M:%S]: ", localtime()) + str(curRPiPressure))
 
@@ -192,6 +192,16 @@ class RPi_Pressure(threading.Thread):
 
 					try:
 						curRPiPressure = self.read_avg_pressure(self.averaging)
+
+						print (strftime("[%H:%M:%S]: ", localtime()) + "Indoor Pressure\t" + str(curRPiPressure))
+						#if (curRPiPressure < self.dataLow or curRPiPressure > self.dataHigh): curRPiPressure = None
+
+						db = MySQLdatabase.Connect(mysql_host, mysql_login, mysql_pw, mysql_db)
+						MySQLdatabase.InsertData(db, 'sensordata', '2nd Floor', 'Raspberry Pi', 'Current', 'Pressure', curRPiPressure, 'mbar')
+						MySQLdatabase.Close(db)
+
+						self.sendMessage(curTime, 'RPi_Pressure', 'measure:pressure', curRPiPressure)
+
 					except IOError, e:
 						print (strftime("[%H:%M:%S]: EXCEPTION ", localtime()) + str(sys.exc_info()[0]))
 						print 'Check that script ran from root user'
@@ -199,17 +209,8 @@ class RPi_Pressure(threading.Thread):
 						if self.logger:
 							self.logger.error (strftime("[%H:%M:%S]: EXCEPTION ", localtime()) + str(sys.exc_info()[0]))
 							self.logger.error('Check that script ran from root user')
-						sys.exit()
+						#sys.exit()
 					
-					print (strftime("[%H:%M:%S]: ", localtime()) + "Indoor Pressure\t" + str(curRPiPressure))
-					#if (curRPiPressure < self.dataLow or curRPiPressure > self.dataHigh): curRPiPressure = None
-
-					db = MySQLdatabase.Connect(mysql_host, mysql_login, mysql_pw, mysql_db)
-					MySQLdatabase.InsertData(db, 'sensordata', '2nd Floor', 'Raspberry Pi', 'Current', 'Pressure', curRPiPressure, 'mbar')
-					MySQLdatabase.Close(db)
-
-					self.sendMessage(curTime, 'RPi_Pressure', 'measure:pressure', curRPiPressure)
-
 					self.lock.release()
 					if self.logger:
 						self.logger.info (strftime("[%H:%M:%S]: ", localtime()) + "RPi_Pressure lock acquired")
@@ -235,7 +236,7 @@ class RPi_Pressure(threading.Thread):
 				if self.logger:
 					#self.logger.error (strftime("[%H:%M:%S]: EXCEPTION ", localtime()) + str(sys.exc_info()[0]))
 					self.logger.error((strftime("[%H:%M:%S]: EXCEPTION ", localtime()) + traceback.format_exc()), exc_info=True)
-				sys.exit()
+				#sys.exit()
 
 
 	def stop(self, timeout=None):

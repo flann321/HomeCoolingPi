@@ -111,7 +111,7 @@ class ForecastIO(threading.Thread):
 			if self.logger:
 				#self.logger.error (strftime("[%H:%M:%S]: EXCEPTION ", localtime()) + str(sys.exc_info()[0]))
 				self.logger.error((strftime("[%H:%M:%S]: EXCEPTION ", localtime()) + traceback.format_exc()), exc_info=True)
-			sys.exit()
+			#sys.exit()
 		
 
 	def run(self):
@@ -240,7 +240,7 @@ class ForecastIO(threading.Thread):
 
 				if self.logger:
 					self.logger.error((strftime("[%H:%M:%S]: EXCEPTION ", localtime()) + traceback.format_exc()), exc_info=True)
-				sys.exit()
+				#sys.exit()
 
 
 	def stop(self, timeout=None):

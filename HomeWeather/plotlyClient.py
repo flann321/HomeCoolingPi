@@ -299,7 +299,7 @@ class plotlyClient(threading.Thread):
 
 						if self.logger:
 							self.logger.error((strftime("[%H:%M:%S]: EXCEPTION ", localtime()) + traceback.format_exc()), exc_info=True)
-						sys.exit()
+						#sys.exit()
 
 					self.lock.release()
 					if self.logger:
@@ -330,7 +330,7 @@ class plotlyClient(threading.Thread):
 
 				if self.logger:
 					self.logger.error((strftime("[%H:%M:%S]: EXCEPTION ", localtime()) + traceback.format_exc()), exc_info=True)
-				sys.exit()
+				#sys.exit()
 
 
 	def stop(self, timeout=None):
